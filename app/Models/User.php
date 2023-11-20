@@ -3,6 +3,7 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -12,6 +13,8 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
+    protected $table = "users";
+
     /**
      * The attributes that are mass assignable.
      *
@@ -19,7 +22,10 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
+        'user_type',
         'email',
+        'address',
+        'phone_number',
         'password',
     ];
 
@@ -42,4 +48,19 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+    
+    protected static function boot()
+    {
+        parent::boot();
+        static::creating(function ($user) {
+            $user->wallet_id = self::generateWalletId();
+        });
+    }
+    
+
+    protected static function generateWalletId()
+    {
+        //Generating a unique wallet ID by using uniqid() function
+        return uniqid('wallet_', true);
+    }
 }
