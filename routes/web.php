@@ -1,11 +1,12 @@
 <?php
 
-use App\Http\Controllers\Auth\ForgotPasswordController;
+
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthManager;
 use App\Http\Controllers\UserProfileController;
 use App\Http\Controllers\WalletViewController;
 use App\Http\Controllers\WalletController;
+use App\Http\Controllers\ForgotPasswordController;
 
 
 /*
@@ -21,7 +22,7 @@ use App\Http\Controllers\WalletController;
 
 Route::get('/', function(){
     return view('welcome');
-});
+})->name('welcome');
 
 Route::get('/Admin', [UserProfileController::class, 'adminprofile'])->middleware('auth')->name('Admin.adminprofile');
 Route::get('/Manager', [UserProfileController::class, 'managerprofile'])->middleware('auth')->name('Manager.managerprofile');
@@ -37,8 +38,8 @@ Route::get('/logout',[AuthManager::class,'logout'])->name('logout');
 
 Route::get('/ForgotPassword',[ForgotPasswordController::class,'ForgotPassword'])->name(name:'ForgotPassword');
 Route::post('/ForgotPassword',[ForgotPasswordController::class,'ForgotPasswordPost'])->name(name:'ForgotPasswordPost');
-Route::get('/reset-password/{token}',[ForgotPasswordController::class, "resetPassword"])->name(name:"reset.password");
-Route::post('/reset-password',[ForgotPasswordController::class, "resetPasswordPost"])->name(name:"reset.password.post");
+Route::get('/ResetPassword/{token}',[ForgotPasswordController::class, "resetPassword"])->name(name:"reset.password");
+Route::post('/ResetPassword',[ForgotPasswordController::class, "resetPasswordPost"])->name(name:"reset.password.post");
 
 Route::get('/wallet/check', [WalletViewController::class, 'showCheckBalanceForm']);
 Route::get('/wallet/deposit', [WalletViewController::class, 'showDepositForm']);

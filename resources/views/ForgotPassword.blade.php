@@ -19,13 +19,15 @@
                     <div class='alert alert-danger'>{{session('success')}}</div>
                 @endif
             </div>
-            <p>A link will be sent to your email to reset the password.</p>
-            <div class="form-container">
-            <form action="{{route('ForgotPasswordPost')}}" method="POST">
-                @csrf
-                <h3>Login Now</h3>
-                <input type="email" name="email" required placeholder="enter your email">
-                <button type="submit" class="btn">Log In</button>
+            <div class="ms-auto mt-5" style="width: 500px">
+                <p>A link will be sent to your email to reset the password.</p>
+                <div class="form-container">
+                <form action="{{route('ForgotPasswordPost')}}" method="POST">
+                    @csrf
+                    <h3>Enter your email address</h3>
+                    <input type="email" name="email" required placeholder="enter your email">
+                    <button type="submit" class="btn">Log In</button>
+            </div>
             </form>
         </div>
 </main>
